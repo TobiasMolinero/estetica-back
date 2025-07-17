@@ -1,0 +1,22 @@
+# Node modules
+node_modules/
+
+# Build output
+dist/
+
+# Logs
+*.log
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos de entorno
+.env
+
+# Editor/IDE
+.vscode/
+.idea/
+
+# TypeScript
+*.tsbuildinfo
