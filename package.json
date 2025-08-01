@@ -1,12 +1,13 @@
 {
   "name": "back-node-ts",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "app.ts",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc && tsc-alias",
-    "start": "node dist/index.js",
-    "dev": "nodemon --watch src --exec ts-node --require tsconfig-paths/register src/index.ts",
+    "start": "node dist/app.ts",
+    "dev": "nodemon --watch src --exec ts-node --require tsconfig-paths/register src/app.ts",
     "lint": "eslint src --ext .ts",
     "format": "prettier --write src"
   },
@@ -16,11 +17,16 @@
   "description": "",
   "devDependencies": {
     "@eslint/js": "^9.31.0",
+    "@types/compression": "^1.8.1",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/morgan": "^1.9.10",
     "@types/node": "^24.0.14",
     "eslint": "^9.31.0",
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-prettier": "^5.5.1",
     "globals": "^16.3.0",
+    "morgan": "^1.10.1",
     "nodemon": "^3.1.10",
     "prettier": "^3.6.2",
     "ts-node": "^10.9.2",
@@ -28,5 +34,11 @@
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.37.0"
+  },
+  "dependencies": {
+    "compression": "^1.8.1",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "mysql2": "^3.14.3"
   }
 }
