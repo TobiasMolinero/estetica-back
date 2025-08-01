@@ -1,3 +1,3 @@
 import { saludo } from '@/utils/saludo';
 
-saludo("Tobias");
+saludo("Nueva API Estetica");
