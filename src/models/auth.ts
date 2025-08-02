@@ -4,6 +4,12 @@ import type { User } from '@/types/user'
 
 type UserData = User & RowDataPacket
 
+type RegisterParams = {
+    nombre_usuario: string
+    contraseña_hash: string
+    id_tipo_usuario: string
+}
+
 export class ModelAuth {
     static async login(username: string): Promise<User[]> {
         console.log(username)
@@ -18,6 +24,18 @@ export class ModelAuth {
         }
 
         return results
+    }
+
+    static async register(userData: RegisterParams): Promise<boolean> {
+        const { nombre_usuario, contraseña_hash, id_tipo_usuario } = userData
+        const query = `INSERT INTO usuarios (nombre_usuario, contraseña_hash, id_tipo_usuario)
+                        VALUES (?, ?, ?)`
+
+        const [err] = await safeQuery(query, [nombre_usuario, contraseña_hash, id_tipo_usuario])
+        
+        if(err) throw err
+        
+        return true
     }
 
     static async saveRefreshToken(userId: number, refreshToken: string): Promise<void> {

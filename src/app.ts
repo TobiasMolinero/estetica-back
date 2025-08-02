@@ -23,7 +23,7 @@ app.use(
 )
 
 app.use((req: Request, res: Response, next: NextFunction) => {
-  const publicsPaths = ['/auth/login', '/auth/logout']
+  const publicsPaths = ['/auth/login', '/auth/logout', '/auth/refresh-token']
   if(publicsPaths.includes(req.path)){
     return next
   }

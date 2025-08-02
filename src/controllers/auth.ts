@@ -1,7 +1,7 @@
 import { safeCallModel } from "@/utils/utils";
 import { Request, Response } from "express";
 import { ModelAuth } from "@/models/auth";
-import { verified } from "@/utils/encrypt";
+import { encrypt, verified } from "@/utils/encrypt";
 import { generateAccessToken, generateRefreshToken, verifyRefreshToken } from "@/utils/jwt";
 
 export class ControllerAuth {
@@ -36,6 +36,16 @@ export class ControllerAuth {
                 data: responseData,
             })
         }
+    }
+
+    static async register(req: Request, res: Response): Promise<void> {
+        const { nombre_usuario, contraseña, id_tipo_usuario} = req.body;
+        const contraseña_hash = await encrypt(contraseña)
+        const [err] = await safeCallModel(ModelAuth.register({nombre_usuario, contraseña_hash, id_tipo_usuario}))
+        
+        if(err) res.status(500).json({ message: 'Ocurrió un error en el servidor. Vuelva a intentarlo más tarde.' })
+
+        res.status(201).json({ message: 'Usuario registrado con éxito.' })        
     }
 
     static async logout(req: Request, res: Response) {
