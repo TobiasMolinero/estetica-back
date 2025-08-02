@@ -6,6 +6,7 @@ import morgan from 'morgan'
 import compression from 'compression'
 import cors from 'cors'
 import { routerAuth } from './routes/auth'
+import { routerUsers } from './routes/users'
 import { authenticateAccessToken, AuthenticatedRequest } from './middlewares/auth'
 
 const app = express()
@@ -22,16 +23,17 @@ app.use(
   })
 )
 
-app.use((req: Request, res: Response, next: NextFunction) => {
-  const publicsPaths = ['/auth/login', '/auth/logout', '/auth/refresh-token']
-  if(publicsPaths.includes(req.path)){
-    return next
-  }
+// app.use((req: Request, res: Response, next: NextFunction) => {
+//   const publicsPaths = ['/auth/login', '/auth/logout', '/auth/refresh-token']
+//   if(publicsPaths.includes(req.path)){
+//     return next
+//   }
 
-  return authenticateAccessToken(req as AuthenticatedRequest, res, next)
-})
+//   return authenticateAccessToken(req as AuthenticatedRequest, res, next)
+// })
 
 app.use('/auth', routerAuth)
+app.use('/users', routerUsers)
 
 const PORT = process.env.PORT || 3000
 

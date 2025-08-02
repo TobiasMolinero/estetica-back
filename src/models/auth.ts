@@ -1,8 +1,5 @@
 import { safeQuery } from "@/utils/utils"
-import { RowDataPacket } from "mysql2"
-import type { User } from '@/types/user'
-
-type UserData = User & RowDataPacket
+import type { User, UserData } from '@/types/user'
 
 type RegisterParams = {
     nombre_usuario: string
