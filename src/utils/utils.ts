@@ -10,17 +10,19 @@ export async function safeCallModel<T>(promise: Promise<T>): Promise<[null, T] |
   }
 }
 
-type QueryResult =
+export type DBResult = RowDataPacket[] | ResultSetHeader
+
+export type QueryResult =
   | RowDataPacket[]
   | RowDataPacket[][]
   | ResultSetHeader
 
-export async function safeQuery<T extends QueryResult = QueryResult>(
+export async function safeQuery<T extends DBResult = DBResult>(
   query: string,
   params: any[] = []
 ): Promise<[null, T] | [Error, null]> {
   try {
-    const [results] = await pool.query<T>(query, params)
+    const [results] = await pool.execute<T>(query, params)
     return [null, results]
   } catch (error) {
     return [error instanceof Error ? error : new Error(String(error)), null]

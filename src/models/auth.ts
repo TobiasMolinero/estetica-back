@@ -9,7 +9,6 @@ type RegisterParams = {
 
 export class ModelAuth {
     static async login(username: string): Promise<User[]> {
-        console.log(username)
         const query = `SELECT u.id, u.nombre_usuario, u.contraseña_hash, tu.nombre 'rol' FROM usuarios u 
                         INNER JOIN tipos_usuario tu ON tu.id = u.id_tipo_usuario 
                         WHERE activo = 1 AND BINARY nombre_usuario = ?`
@@ -65,7 +64,7 @@ export class ModelAuth {
 
     static async updateRefreshToken(userId: number, newToken: string): Promise<boolean> {
         const query = 'UPDATE usuarios SET refresh_token = ? WHERE id = ?'
-        const [err] = await safeQuery(query, [userId, newToken])
+        const [err] = await safeQuery(query, [newToken, userId])
 
         return !err
     }
