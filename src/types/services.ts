@@ -1,4 +1,3 @@
-import { DBResult } from "@/utils/utils"
 import { ResultSetHeader, RowDataPacket } from "mysql2"
 
 export interface Service {
